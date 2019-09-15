@@ -17,3 +17,7 @@ cd qmk_firmware
 CFLAGS="-Wno-error=deprecated" make planck/rev6:mfs
 make bigswitch:mfs
 make snagpad:mfs
+
+# artifacts
+mkdir ../artifacts
+cp -v *.bin *.hex ../artifacts/
