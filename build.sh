@@ -13,12 +13,6 @@ cp -nrv keyboards qmk_firmware/
 # build
 cd qmk_firmware
 
-# (ci) install dependencies
-if [[ -v CIRCLECI ]];
-then
-util/linux_install.sh
-fi
-
 #CFLAGS="-Wno-error=deprecated" make planck/rev4:mfs firmware too big
 CFLAGS="-Wno-error=deprecated" make planck/rev6:mfs
 make bigswitch:mfs
