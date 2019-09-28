@@ -41,7 +41,13 @@ const char *strings[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static bool seeded = false;
+
   if (record->event.pressed) {
+    if (!seeded) {
+      srand(timer_read());
+      seeded = true;
+    }
     int strings_count = sizeof(strings) / sizeof(strings[0]);
     int i = rand() % strings_count;
     switch(keycode) {
