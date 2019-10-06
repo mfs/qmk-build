@@ -13,7 +13,7 @@ cp -nrv keyboards qmk_firmware/
 # build
 cd qmk_firmware
 
-#CFLAGS="-Wno-error=deprecated" make planck/rev4:mfs firmware too big
+CFLAGS="-Wno-error=deprecated" make planck/rev5:mfs
 CFLAGS="-Wno-error=deprecated" make planck/rev6:mfs
 make bigswitch:mfs
 make snagpad:mfs
