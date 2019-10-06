@@ -1,3 +1,3 @@
 CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = no
-SRC += muse.c
+
