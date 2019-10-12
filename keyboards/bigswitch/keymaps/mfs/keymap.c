@@ -67,19 +67,28 @@ const char *strings[] = {
   "Guns make you stupid; better to fight your wars with duct tape. Duct tape makes you smart.\n",
 };
 
+const int strings_count = sizeof(strings) / sizeof(strings[0]);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static bool seeded = false;
+  static int current_index = strings_count;
 
   if (record->event.pressed) {
-    if (!seeded) {
+    if (current_index == strings_count) {
       srand(timer_read());
-      seeded = true;
+      current_index = 0;
+      // Fisher - Yates shuffle
+      for (int i = strings_count - 1; i > 0; --i) {
+        int j = rand() % (i + 1);
+
+        const char * tmp = strings[i];
+        strings[i] = strings[j];
+        strings[j] = tmp;
+      }
     }
-    int strings_count = sizeof(strings) / sizeof(strings[0]);
-    int i = rand() % strings_count;
     switch(keycode) {
       case RANDOM_STRING:
-        send_string(strings[i]);
+        send_string(strings[current_index]);
+        current_index += 1;
         return false;
     }
   }
