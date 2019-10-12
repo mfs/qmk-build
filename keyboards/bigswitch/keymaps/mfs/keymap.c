@@ -38,7 +38,6 @@ const char *strings[] = {
   "There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.\n",
   "Install Gentoo!\n",
   "House Red!\n",
-  "Hack the planet!\n",
   "Containers you say! http://doger.io\n",
   "My other keyboard is a Planck.\n",
   "This is fine.\n",
