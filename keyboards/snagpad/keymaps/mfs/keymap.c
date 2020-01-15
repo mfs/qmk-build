@@ -1,45 +1,43 @@
 #include QMK_KEYBOARD_H
 
+// flip layout to 5 across by 4 down
+// cable on the left
+#define LAYOUT_ortho_4x5( \
+    K00, K01, K02, K03, K04, \
+    K10, K11, K12, K13, K14, \
+    K20, K21, K22, K23, K24, \
+    K30, K31, K32, K33, K34 \
+) { \
+    { K30,   K20,   K10,   K00 }, \
+    { K31,   K21,   K11,   K01 }, \
+    { K32,   K22,   K12,   K02 }, \
+    { K33,   K23,   K13,   K03 }, \
+    { K34,   K24,   K14,   K04 } \
+}
+
+#define SECENT LT(_SECONDARY, KC_PENT)
+
 enum snagpad_layers {
-    _HEXPAD,
-    _FUNCTIONS,
-    _MACROS,
-    _ADJUST,
+    _PRIMARY,
+    _SECONDARY,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_HEXPAD] = LAYOUT_ortho_5x4(
-        KC_C, KC_D, KC_E, KC_F,
-        KC_8, KC_9, KC_A, KC_B,
-        KC_4, KC_5, KC_6, KC_7,
-        KC_0, KC_1, KC_2, KC_3,
-        KC_BSPACE, MO(_ADJUST), MO(_ADJUST), KC_ENTER
+    [_PRIMARY] = LAYOUT_ortho_4x5(
+        KC_P7, KC_P8,   KC_P9,  KC_PMNS, KC_PPLS,
+        KC_P4, KC_P5,   KC_P6,  KC_PSLS, KC_PAST,
+        KC_P1, KC_P2,   KC_P3,  KC_F5,   KC_F6,
+        KC_P0, KC_PDOT, SECENT, KC_F7,   KC_F8
     ),
 
-    [_FUNCTIONS] = LAYOUT_ortho_5x4(
-        KC_F1, KC_F2, KC_F3, KC_F4,
-        KC_F5, KC_F6, KC_F7, KC_F8,
-        KC_F9, KC_F10, KC_F11, KC_F12,
-        KC_F13, KC_F14, KC_F15, KC_F16,
-        KC_TRNS, MO(_ADJUST), MO(_ADJUST), KC_TRNS
+    [_SECONDARY] = LAYOUT_ortho_4x5(
+        KC_TRNS, KC_TRNS, RESET,   KC_F1,   KC_F2,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
-    [_MACROS] = LAYOUT_ortho_5x4(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, MO(_ADJUST), MO(_ADJUST), KC_TRNS
-    ),
-
-    [_ADJUST] = LAYOUT_ortho_5x4(
-        DF(_HEXPAD), DF(_FUNCTIONS), DF(_MACROS), KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, RESET,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
 };
 
 
