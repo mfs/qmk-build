@@ -2,7 +2,7 @@
 
 set -eu
 
-QMK_VERSION=0.7.33
+QMK_VERSION=0.9.46
 
 # clone repo/tag
 git clone --depth 50 --recursive --branch $QMK_VERSION https://github.com/qmk/qmk_firmware.git
