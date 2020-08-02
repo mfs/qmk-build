@@ -24,7 +24,7 @@ enum planck_layers {
   _DVORAK,
   _LOWER,
   _RAISE,
-  _NAV,
+  _MACRO_BLEND,
   _PLOVER,
   _ADJUST
 };
@@ -41,6 +41,7 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define BLEND MO(_MACRO_BLEND)
 
 #define SFT_ENT RSFT_T(KC_ENT)
 #define CTL_ESC CTL_T(KC_ESC)
@@ -61,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_planck_grid(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LT(_NAV, KC_SCLN), KC_QUOT,
+  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT,
-  _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_LSFT,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   BLEND,   KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Colemak
@@ -142,21 +143,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______,  KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
-/* Nav
+/* Blend
  * ,-----------------------------------------------------------------------------------.
- * | EMAIL|      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      | CtlP |      |      |      |      |      |EMAIL |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | Home | PgUp | PgDn | End  | Left | Down |  Up  |Right |      |      |
+ * |      | Ctl+ | Ctl- | Ctl* | Ctl/ |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      | KP_7 | KP_1 | KP_3 |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_NAV] = LAYOUT_planck_grid(
-  EMAIL,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, KC_HOME, KC_PGUP, KC_PGDN,  KC_END, KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+
+/* Used for parenting and difficult to get to with one hand */
+#define B_PAR LCTL(KC_P)
+
+/* Used for Bool tool and select more/less */
+#define B_CP LCTL(KC_KP_PLUS)
+#define B_CM LCTL(KC_KP_MINUS)
+#define B_CA LCTL(KC_KP_ASTERISK)
+#define B_CS LCTL(KC_KP_SLASH)
+
+/* Used for view changing */
+#define B_VIEWX  KC_KP_3
+#define B_VIEWY  KC_KP_1
+#define B_VIEWZ  KC_KP_7
+
+[_MACRO_BLEND] = LAYOUT_planck_grid(
+  _______, _______, _______, _______, B_PAR,   _______, _______, _______, _______, _______, EMAIL,   _______,
+  _______, B_CP,    B_CM,    B_CA,    B_CS,    _______, _______, _______, _______, _______, _______, _______,
+  _______, B_VIEWZ, B_VIEWX, B_VIEWY, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
